@@ -1,0 +1,21 @@
+; ModuleID = 'ocaml-llvm-examples'
+source_filename = "ocaml-llvm-examples"
+
+@fmt = private unnamed_addr constant [4 x i8] c"%d\0A\00", align 1
+
+declare i32 @printf(i8*, ...)
+
+define void @print_int_func(i32 %0) {
+entry:
+  %res = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @fmt, i32 0, i32 0), i32 %0)
+  ret void
+}
+
+define i32 @main() {
+entry:
+  %x = alloca [1 x i32], align 4
+  store [1 x i32] [i32 3], [1 x i32]* %x, align 4
+  call void @print_int_func(i32 3)
+  ret i32 0
+}
+

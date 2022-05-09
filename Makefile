@@ -1,6 +1,6 @@
 .PHONY : clean
 
-target=gcd
+target=arr
 
 $(target): $(target).ml
 	ocamlfind ocamlopt -o irgen -linkpkg -package llvm $(target).ml \
