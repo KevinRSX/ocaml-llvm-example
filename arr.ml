@@ -39,8 +39,17 @@ let _ =
   [|L.const_int i32_t 3; L.const_int i32_t 9|] in
   let arr_ptr = L.build_alloca (L.array_type i32_t 2) "x" builder in
   let _ = L.build_store arr arr_ptr builder in
-  let arr_re = L.build_extractvalue arr 1 "y" builder in
+
+  (* Access *)
+  let arr_re = L.build_extractvalue arr 1 "access" builder in
   let _ = L.build_call print_int_func [|arr_re|] "" builder in
+
+  (* Modify *)
+  let arr_mod = L.build_insertvalue arr (L.const_int i32_t 6) 0 "modify"
+    builder in
+  let arr_re = L.build_extractvalue arr_mod 0 "access" builder in
+  let _ = L.build_call print_int_func [|arr_re|] "" builder in
+
   L.build_ret (L.const_int i32_t 0) builder
 in
 
