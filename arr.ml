@@ -35,10 +35,11 @@ let _ =
   let func = L.define_function "main" ftype the_module in
   let entry_block = L.entry_block func in
   let builder = L.builder_at_end context entry_block in
-  let arr = L.const_array (L.array_type i32_t 1) [|L.const_int i32_t 3|] in
-  let arr_ptr = L.build_alloca (L.array_type i32_t 1) "x" builder in
+  let arr = L.const_array (L.array_type i32_t 2)
+  [|L.const_int i32_t 3; L.const_int i32_t 9|] in
+  let arr_ptr = L.build_alloca (L.array_type i32_t 2) "x" builder in
   let _ = L.build_store arr arr_ptr builder in
-  let arr_re = L.build_extractvalue arr 0 "y" builder in
+  let arr_re = L.build_extractvalue arr 1 "y" builder in
   let _ = L.build_call print_int_func [|arr_re|] "" builder in
   L.build_ret (L.const_int i32_t 0) builder
 in

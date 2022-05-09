@@ -13,9 +13,9 @@ entry:
 
 define i32 @main() {
 entry:
-  %x = alloca [1 x i32], align 4
-  store [1 x i32] [i32 3], [1 x i32]* %x, align 4
-  call void @print_int_func(i32 3)
+  %x = alloca [2 x i32], align 4
+  store [2 x i32] [i32 3, i32 9], [2 x i32]* %x, align 4
+  call void @print_int_func(i32 9)
   ret i32 0
 }
 
